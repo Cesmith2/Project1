@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./C4read C4board.in
