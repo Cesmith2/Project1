@@ -12,7 +12,7 @@
 class ai
 {
 	public:
-		connect4Game(const char* inFile) {
+		ai(char curField[y][x]) {
 			y = 6;
 			x = 7;
 
