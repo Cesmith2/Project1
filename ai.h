@@ -100,6 +100,8 @@ class ai
 			cout << "It's player " << player << "'s turn." << endl;
 			if(player == 1)
 				cin >> choice;
+			else
+				aiPlayer();
 
 			//if the player's choice it 0>x>7 set choice equal to the bounds (7 or 0)
 			while(choice >= 7 || choice < 0) {
@@ -116,7 +118,6 @@ class ai
 					}   
 					//if player 2 put a "X"
 					else if(player == 2) {
-						aiPlayer();
 						field[i][choice] = 'O';
 						break;
 					}   
