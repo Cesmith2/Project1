@@ -7,62 +7,101 @@
 #ifndef AI_H
 #define AI_H
 
-#include "connect4Game.h"
+#include <cstdlib>
+
+using namespace std;
 
 class ai
 {
-	public:
-		ai(char curField[y][x]) {
-			y = 6;
-			x = 7;
+	int player;
+   int choice;
+   int y;
+   int x;
+   char field[6][7];
+   bool winner;
+   char lines;
 
-			//set # of players (2)
-			player = 1;
-			//there is no winner yet so...
-			winner = false;
-	
-			//read in and draw the field
-			ifstream fin;
-			fin.open(inFile);
-			for(int i=0; i<y; ++i) {
-				for(int j=0; j<x; ++j) {
-					fin >> field[i][j];
+	public:
+
+		struct boardView{
+			char grid[6][7];
+		};
+		
+		boardView children[7];
+
+		boardView guessChildren(int p, char grid[][7]) {
+			//generates a list of possible moves..
+			for(int i=0; i<7; ++i) {
+				for(int j=5; j>=0; --j) {
+					if(grid[j][i] == '.') {
+						if(p==1)			
+							grid[j][i] = 'X';
+						else
+							grid[j][i] = 'O';
+						break;
+					}
 				}
 			}
-			
-			fin.close();
 		}
 		
-		//print the field to the screen/
-		void printField() {
-			y = 6;
-			x = 7;
-
-			clear();
-			cout << "0 1 2 3 4 5 6" << endl;
-			for(int i=0; i<y; ++i) {
-				for(int j=0; j<x;++j) {
-				cout <<  field[i][j] << " ";
-				}
-				cout << endl;
-			}
+		//randomly generates a choice
+		void aiPlayer() {
+			srandom(time(NULL));
+			choice = random()%7;
 		}
 
-		//clears the screen/
-		void clear() {
-			for(int i=0; i<80; ++i) {
-				cout << endl;
-			}
-		}
+		//class constructor
+		ai(const char* inFile) {
+         y = 6;
+         x = 7;
 
+         //set # of players (2)
+         player = 1;
+         //there is no winner yet so...
+         winner = false;
+   
+         //read in and draw the field
+         ifstream fin;
+         fin.open(inFile);
+         for(int i=0; i<y; ++i) {
+            for(int j=0; j<x; ++j) {
+               fin >> field[i][j];
+            }   
+         }   
+             
+         fin.close();
+      }   
+          
+      //print the field to the screen/
+      void printField() {
+         y = 6;
+         x = 7;
+
+         clear();
+         cout << "1 v AI\n0 1 2 3 4 5 6" << endl;
+         for(int i=0; i<y; ++i) {
+            for(int j=0; j<x;++j) {
+            cout <<  field[i][j] << " ";
+            }   
+            cout << endl;
+         }   
+      }   
+
+      //clears the screen/
+      void clear() {
+         for(int i=0; i<80; ++i) {
+            cout << endl;
+         }   
+      }   
+	
 		//Da(Rulez/
 		void keepPlaying() {
 			int fullSpace = 0;
-			cout << "It's player " << (player%2)+1 << "'s turn." << endl;
-			cin >> choice;
+			cout << "It's player " << player << "'s turn." << endl;
+			if(player == 1)
+				cin >> choice;
 
 			//if the player's choice it 0>x>7 set choice equal to the bounds (7 or 0)
-			
 			while(choice >= 7 || choice < 0) {
 				cout << "Column does not exist, try again" << endl;
 				keepPlaying();
@@ -70,14 +109,15 @@ class ai
 			//if the bottom most row is full place the players token in the row above
 			for(int i=5; i>=0; --i) {
 				if(field[i][choice] == '.') {
-					//if player 2 put a "O"
+					//if player 1 put a "O"
 					if(player == 1) {
-						field[i][choice] = 'O';
+						field[i][choice] = 'X';
 						break;
 					}   
-					//if player 1 put a "X"
+					//if player 2 put a "X"
 					else if(player == 2) {
-						field[i][choice] = 'X';
+						aiPlayer();
+						field[i][choice] = 'O';
 						break;
 					}   
 				}   
@@ -93,8 +133,9 @@ class ai
 			}   
 
 			//change players
-			if(player == 1)
-			player = 2;
+			if(player == 1) {
+				player = 2;
+			}
 			else
 				player = 1;
 

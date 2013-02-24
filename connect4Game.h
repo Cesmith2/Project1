@@ -50,7 +50,7 @@ class connect4Game
 			x = 7;
 
 			clear();
-			cout << "0 1 2 3 4 5 6" << endl;
+			cout << "1 v 1\n0 1 2 3 4 5 6" << endl;
 			for(int i=0; i<y; ++i) {
 				for(int j=0; j<x;++j) {
 				cout <<  field[i][j] << " ";
@@ -69,11 +69,10 @@ class connect4Game
 		//Da(Rulez/
 		void keepPlaying() {
 			int fullSpace = 0;
-			cout << "It's player " << (player%2)+1 << "'s turn." << endl;
+			cout << "It's player " << player << "'s turn." << endl;
 			cin >> choice;
 
 			//if the player's choice it 0>x>7 set choice equal to the bounds (7 or 0)
-			
 			while(choice >= 7 || choice < 0) {
 				cout << "Column does not exist, try again" << endl;
 				keepPlaying();
@@ -81,14 +80,14 @@ class connect4Game
 			//if the bottom most row is full place the players token in the row above
 			for(int i=5; i>=0; --i) {
 				if(field[i][choice] == '.') {
-					//if player 2 put a "O"
+					//if player 1 put a "O"
 					if(player == 1) {
-						field[i][choice] = 'O';
+						field[i][choice] = 'X';
 						break;
 					}   
-					//if player 1 put a "X"
+					//if player 2 put a "X"
 					else if(player == 2) {
-						field[i][choice] = 'X';
+						field[i][choice] = 'O';
 						break;
 					}   
 				}   
@@ -105,7 +104,7 @@ class connect4Game
 
 			//change players
 			if(player == 1)
-			player = 2;
+				player = 2;
 			else
 				player = 1;
 
