@@ -10,7 +10,8 @@ Run:
 
 Desription:
 	Play connect play with a friend or with and AI player! If anything but a correc input is put into the  options for 2player or AI the program will exit.
-
+	option (0) is for 2 player and option (1) is for player vs AI.
+	
 Test cases:
 
 #./c4ai C4board.in
@@ -24,6 +25,7 @@ Test cases:
 It's player 1's turn.
 
 #./c4ai board1.in
+option(0)
 -starting state1-
 . . . . . . .
 . . . . . . .
@@ -34,6 +36,7 @@ It's player 1's turn.
 Player 1 has won!
 
 #./c4ai board2.in
+option(0)
 -starting state2-
 . . . . . . . 
 . . . . . . .
@@ -45,6 +48,7 @@ X X O . . . .
 Player 2 has won!
 
 #./c4ai board3.in
+option(0)
 -starting state3-
 . . . . . . .
 . . . . . . .

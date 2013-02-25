@@ -22,12 +22,10 @@ class ai
 
 	public:
 
-		struct boardView{
+		/*struct boardView{
 			char grid[6][7];
 		};
 		
-		boardView children[7];
-
 		boardView guessChildren(int p, char grid[][7]) {
 			//generates a list of possible moves..
 			for(int i=0; i<7; ++i) {
@@ -41,12 +39,47 @@ class ai
 					}
 				}
 			}
-		}
+		}*/
 		
-		//randomly generates a choice
+		//AI generated moves
 		void aiPlayer() {
+		//randomly generates a choice
 			srandom(time(NULL));
 			choice = random()%7;
+
+			/*bool isOwin=false;
+			for(int i=0; i<7; ++i) {
+				choice = i;
+				for(int j=5; j>=0; --j) {
+					if(field[j][choice] == '.') {
+						field[j][choice] = 'O';
+						checkIfWinner();
+						if(winner) {
+							isOwin=true;
+							break;
+						}
+						else
+							keepPlaying();
+					}
+				}
+			}
+			if(!isOwin){		
+				for(int i=0; i<7; ++i) {
+					choice = i;
+					for(int j=5; j>=0; --j) {
+						if(field[j][choice] == '.') {
+							field[j][choice] = 'X';
+							checkIfWinner();
+							if(winner) {
+								field[j][choice] = 'O';
+								break;
+							}
+							else
+								keepPlaying();
+						}
+					}
+				}
+			}*/
 		}
 
 		//class constructor
@@ -153,6 +186,7 @@ class ai
 		//check for a winning state/
 		void checkIfWinner() {
 			int start = 0;
+			int count = 0;			
 
 			//win vertically
 			for(int i=0; i<7; ++i) {
@@ -213,6 +247,19 @@ class ai
 				}
 				start = 0;
 			}	
+
+			//draw
+			/*for(int i=0; i<6; ++i) {
+				for(int j=0; j<7; ++j) {
+					if(field[i][j] != ".") {
+						++count;
+					}
+				}
+			}
+			if(count == 42) {
+				cout << "The game is a draw!" << endl;
+				
+			}*/
 		}
 
 		//what happens on each turn/
