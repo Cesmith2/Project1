@@ -16,7 +16,11 @@ int main(int argc, char** argv)
 	int type;
 	cout << "Select a game type\n  (0) for 2 player\n  (1) for an AI player" << endl;
 	cin >> type;
-	if(type == 1)
+	if(cin.fail()) {
+		cin.clear();
+		cin.ignore();
+	}
+	else if(type == 1)
 		ai(argv[1]).turns();
 	else if(type == 0)
    	connect4Game(argv[1]).turns();

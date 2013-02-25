@@ -19,7 +19,6 @@ class ai
    int x;
    char field[6][7];
    bool winner;
-   char lines;
 
 	public:
 
@@ -98,8 +97,15 @@ class ai
 		void keepPlaying() {
 			int fullSpace = 0;
 			cout << "It's player " << player << "'s turn." << endl;
-			if(player == 1)
+			if(player == 1) {
 				cin >> choice;
+				if(cin.fail()) {
+					cin.clear();
+					cin.ignore();
+					cout << "Correct input is a #: 0-6" << endl;
+					keepPlaying();
+				}
+			}
 			else
 				aiPlayer();
 
@@ -207,9 +213,6 @@ class ai
 				}
 				start = 0;
 			}	
-
-			//clear the screen
-			clear();
 		}
 
 		//what happens on each turn/

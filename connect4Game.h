@@ -71,7 +71,13 @@ class connect4Game
 			int fullSpace = 0;
 			cout << "It's player " << player << "'s turn." << endl;
 			cin >> choice;
-
+			if(cin.fail()) {
+				cin.clear();
+				cin.ignore();
+				cout << "Correct input is a #: 0-6" << endl;	
+				keepPlaying();
+			}
+	
 			//if the player's choice it 0>x>7 set choice equal to the bounds (7 or 0)
 			while(choice >= 7 || choice < 0) {
 				cout << "Column does not exist, try again" << endl;
